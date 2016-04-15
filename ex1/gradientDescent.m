@@ -17,8 +17,10 @@ for iter = 1:num_iters
     %       of the cost function (computeCost) and gradient here.
     %
 
-
-
+    theta0 = theta(1,1);
+    theta1 = theta(2,1);
+    
+%    theta0 = 
 
 
 
@@ -27,7 +29,17 @@ for iter = 1:num_iters
 
     % Save the cost J in every iteration    
     J_history(iter) = computeCost(X, y, theta);
+    
+    if iter > 1,
+%        fprintf('Iter %f',iter);
+        if (J_history(iter) <= J_history(iter - 1)),
+            theta0 = theta0 - alpha;
+            theta1 = theta0 - alpha;
+            theta = [theta0; theta1];
+%            fprintf('%f %f \n', theta(1), theta(2));
 
+        end 
+    end
 end
 
 end
