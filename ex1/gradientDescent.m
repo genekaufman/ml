@@ -8,7 +8,6 @@ m = length(y); % number of training examples
 J_history = zeros(num_iters, 1);
 
 for iter = 1:num_iters
-
     % ====================== YOUR CODE HERE ======================
     % Instructions: Perform a single gradient step on the parameter vector
     %               theta. 
@@ -16,30 +15,16 @@ for iter = 1:num_iters
     % Hint: While debugging, it can be useful to print out the values
     %       of the cost function (computeCost) and gradient here.
     %
+    h = X * theta;
 
-    theta0 = theta(1,1);
-    theta1 = theta(2,1);
+    errorsV = h - y;
+    gradientV = alpha * (1/m) * (X' * errorsV);
+    theta = theta - gradientV;
     
-%    theta0 = 
-
-
-
-
-    % ============================================================
-
     % Save the cost J in every iteration    
     J_history(iter) = computeCost(X, y, theta);
     
-    if iter > 1,
-%        fprintf('Iter %f',iter);
-        if (J_history(iter) <= J_history(iter - 1)),
-            theta0 = theta0 - alpha;
-            theta1 = theta0 - alpha;
-            theta = [theta0; theta1];
-%            fprintf('%f %f \n', theta(1), theta(2));
-
-        end 
-    end
+    
 end
 
 end
