@@ -29,10 +29,10 @@ X = data(:, [1, 2]); y = data(:, 3);
 %% ==================== Part 1: Plotting ====================
 %  We start the exercise by first plotting the data to understand the 
 %  the problem we are working with.
+if 0
 
 fprintf(['Plotting data with + indicating (y = 1) examples and o ' ...
          'indicating (y = 0) examples.\n']);
-
 plotData(X, y);
 
 % Put some labels 
@@ -47,7 +47,7 @@ hold off;
 
 fprintf('\nProgram paused. Press enter to continue.\n');
 pause;
-
+end
 
 %% ============ Part 2: Compute Cost and Gradient ============
 %  In this part of the exercise, you will implement the cost and gradient
@@ -91,6 +91,7 @@ fprintf('Cost at theta found by fminunc: %f\n', cost);
 fprintf('theta: \n');
 fprintf(' %f \n', theta);
 
+if 0
 % Plot Boundary
 plotDecisionBoundary(theta, X, y);
 
@@ -103,7 +104,7 @@ ylabel('Exam 2 score')
 % Specified in plot order
 legend('Admitted', 'Not admitted')
 hold off;
-
+end
 fprintf('\nProgram paused. Press enter to continue.\n');
 pause;
 

@@ -9,6 +9,9 @@ m = length(y); % number of training examples
 
 % You need to return the following variables correctly 
 J = 0;
+disp('12 size(J):');
+disp(size(J));
+
 grad = zeros(size(theta));
 
 % ====================== YOUR CODE HERE ======================
@@ -21,14 +24,29 @@ grad = zeros(size(theta));
 %
 Term1 = 0;
 Term2 = 0;
-h_theta_x = sigmoid(X * theta );
+for i = 1:m
+    h_theta_x = sigmoid(theta' .* X(i,:));
+    fprintf('%d:',i);
+    disp('htx:')
+    disp(h_theta_x);
+    Term1 = Term1 - y(i) * log(h_theta_x );
+    Term2 = Term2 + (1 - y(i)) * log(1 - h_theta_x);
+    %grad(i) = (sigmoid(theta' * X(i)) - y(i)) * X(i);
+    %h = X * theta;
 
-Term1 = (-1 * y) .* log(h_theta_x );
-Term2 = (1 - y) .* log(1 - h_theta_x);
+end
+JTemp = (Term1 - Term2) / m;
+disp('39 size(JTemp):');
+disp(size(JTemp));
+disp(JTemp);
+J = JTemp(1);
+disp('42 size(J):');
+disp(size(J));
 
-grad = (X' *(h_theta_x - y)) / m;
+%h_theta_x = sigmoid(theta' * X);
+%Term1 = (-1 * y) * log(h_theta_x);
 
-J = sum(Term1 - Term2) / m;
+
 
 
 % =============================================================
