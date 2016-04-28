@@ -36,9 +36,29 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+Term1 = 0;
+Term2 = 0;
+h_theta_x = sigmoid(X * theta );
 
+Term1 = (-1 * y) .* log(h_theta_x );
+Term2 = (1 - y) .* log(1 - h_theta_x);
 
+unreg_grad = (X' *(h_theta_x - y)) / m;
 
+unreg_J = sum(Term1 - Term2) / m;
+%---
+%--[unreg_J, unreg_grad] = costFunction(theta, X, y);
+theta(1) = 0;
+
+cost_reg = (theta' * theta) * (lambda/(2*m));
+J = unreg_J + cost_reg;
+%disp('theta:');
+%disp(theta)
+%disp('lambda:');
+%disp(lambda)
+grad_reg= theta * (lambda/m);
+%disp(grad_reg)
+grad = unreg_grad + grad_reg;
 
 
 

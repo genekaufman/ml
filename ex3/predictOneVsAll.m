@@ -30,9 +30,14 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
+%probs = sigmoid(X * theta);
 
 
 
+%p = sigmoid(X * max(all_theta,[],2));
+p = sigmoid(max(X,[],2) * all_theta);
+
+p = probs >= 0.5;
 
 
 
