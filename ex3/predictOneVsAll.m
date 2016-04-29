@@ -35,9 +35,12 @@ X = [ones(m, 1) X];
 
 
 %p = sigmoid(X * max(all_theta,[],2));
-p = sigmoid(max(X,[],2) * all_theta);
-
-p = probs >= 0.5;
+p2 = sigmoid(X * all_theta');
+%disp(size(p2))
+[dummy, p] = max(p2,[],2);
+%p = p2;
+%disp(size(p))
+%p = probs >= 0.5;
 
 
 
