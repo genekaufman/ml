@@ -62,11 +62,64 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+eye_matrix = eye(num_labels);
+y_matrix = eye_matrix(y,:);
+y = y_matrix;
+
+%a1 equals the X input matrix with a column of 1's added (bias units) as the first column.
+a1c = ones(size(X, 1), 1);
+a1 = [a1c X];
+%X = 
+%z2 equals the product of a1 and ?1
+%disp(size(a1));
+%disp(size(Theta1'));
+
+z2 = a1 * Theta1';
+
+%a2 is the result of passing z2 through g()
+a2temp = sigmoid(z2);
+%Then add a column of bias units to a2 (as the first column).
+a2temp2 = ones(size(a2temp,1),1);
+a2 = [a2temp2 a2temp];
+%NOTE: Be sure you DON'T add the bias units as a new row of Theta.
+
+%z3 equals the product of a2 and ?2
+z3 = a2 * Theta2';
+
+%a3 is the result of passing z3 through g()
+a3 = sigmoid(z3);
+
+innerterms = ((-1 * y) .* log(a3)) - ((1-y) .* log(1-a3));
+Ksum = sum(innerterms);
+iSum = sum(Ksum);
+J_unreg = iSum / m;
+%J = sum(sum(innerterms)) / m;
+J_reg = 0;
+%remove bias column from Theta1, Theta2
+Theta1_nb =  Theta1(:,2:end);
+Theta2_nb =  Theta2(:,2:end);
+reg_innerterm_left = sum(sum(Theta1_nb .^ 2));
+reg_innerterm_right = sum(sum(Theta2_nb .^ 2));
+J_reg = (lambda / (2 * m)) * (reg_innerterm_left + reg_innerterm_right);
+J = J_unreg + J_reg;
+
+d3 = a3 - y_matrix;
+d2 = (d3 * Theta2_nb) .* sigmoidGradient(z2);
+Delta1 = d2' * a1;
+Delta2 = d3' * a2;
+
+Theta1_grad_unreg = Delta1 / m;
+Theta2_grad_unreg = Delta2 / m;
+
+Theta1(:,1) = 0;
+Theta2(:,1) = 0;
+
+Theta1_grad_reg = (lambda / m) * Theta1;
+Theta2_grad_reg = (lambda / m) * Theta2;
 
 
-
-
-
+Theta1_grad = Theta1_grad_unreg + Theta1_grad_reg;
+Theta2_grad = Theta2_grad_unreg + Theta2_grad_reg;
 
 
 
