@@ -20,12 +20,24 @@ grad = zeros(size(theta));
 %
 
 
+hh = X * theta - y;
+unregJ = (1/(2*m)) * (hh' * hh);
+
+unreg_grad = (X' * hh) / m;
+
+theta(1) = 0;
+
+regJ = (theta' * theta) * (lambda/(2*m));
+J = unregJ + regJ;
 
 
-
-
-
-
+%Theta1_nb =  theta(:,2:end);
+%The regularized gradient term is theta scaled by (lambda / m). 
+%Again, since theta(1) has been set to zero, it does not contribute to the 
+%regularization term.
+grad_reg= theta * (lambda/m);
+%disp(grad_reg)
+grad = unreg_grad + grad_reg;
 
 
 
