@@ -23,8 +23,16 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
-
-
+C_dev = [.01,.035];
+Mult = 10;
+C_dev2 = C_dev;
+for j = 1:5
+    for i = 1:length(C_dev)
+        thisOne = C_dev(i) * Mult;
+        C_dev2 = [C_dev2 thisOne];
+    end
+    Mult = Mult ^ 1.3;
+end
 
 
 
