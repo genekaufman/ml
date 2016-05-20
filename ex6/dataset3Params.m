@@ -23,18 +23,36 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
-C_dev = [.01,.035];
-Mult = 10;
-C_dev2 = C_dev;
-for j = 1:5
-    for i = 1:length(C_dev)
-        thisOne = C_dev(i) * Mult;
-        C_dev2 = [C_dev2 thisOne];
+C_range = [0.01, 0.035, 0.1, 0.35, 1, 3.5, 10, 35];
+sigma_range = C_range;
+bestError = 0;
+vals2Use = [C, sigma];
+firstRun = 1;
+x1 = [1 2 1]; x2 = [0 4 -1];
+for thisC = 1:length(C_range)
+    for thisSigma = 1:length(sigma_range)
+        
+        model= svmTrain(X, y, C_range(thisC), @(x1, x2) gaussianKernel(x1, x2,  sigma_range(thisSigma)));
+        pred = svmPredict(model, Xval);
+        CS = [C_range(thisC), sigma_range(thisSigma)];
+        error =  mean(double(pred ~= yval));
+        betterResults = 0;
+        if firstRun == 1 
+            betterResults = 1;
+        elseif error < bestError
+            betterResults = 1;
+        end
+        
+        if betterResults == 1
+            bestError = error;
+            vals2Use = CS;
+            fprintf(['49 [%0.5f %0.5f] pred: %0.5f\n'],C_range(thisC), sigma_range(thisSigma),pred);
+        end
+        firstRun = 0;
     end
-    Mult = Mult ^ 1.3;
 end
-
-
+C = vals2Use(1);
+sigma = vals2Use(2);
 
 
 % =========================================================================
