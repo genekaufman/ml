@@ -29,9 +29,9 @@ for i = 1:K
     distanceMatrix(:,i) = thisCol;
 end
 
-%distanceMatrix
+distanceMatrix
 
-[value_not_used,idx]=min(distanceMatrix,[],2);
+[value,index]=min(distanceMatrix,[],2)
 
 
 
