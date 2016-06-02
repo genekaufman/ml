@@ -21,13 +21,39 @@ sigma2 = zeros(n, 1);
 %               should contain variance of the i-th feature.
 %
 
+%for i=1:n
+%    thisRow = X(i,:);
+%    mu(i,:) = mean(thisRow);
+%    sigma2(i,:) = (1 / m) * sum((thisRow - mu(i)).^ 2);
+%end
+
+%mu = mean(X);
+%muRow = mu';
+%disp(muRow)
+
+mu = mean(X);
+size(X)
+size(mu)
+
+%sigma2 = (1 / m) * sum((X - mu').^ 2)';
+
+%%inner = X - mu;
+%%sigma2 = (1 / m) * sum(inner .^ 2)';
+%sigma2 = (1/m) * (X' * X);
 
 
+  mu2 = 1/m*sum(X)';
+size(mu2)
+  
+  %---for loop based sigma2---
+  %for j=1:m
+  %  temp = (X(j,:) - mu').^2;
+  %  sigma2 += temp';
+  %end
+  %sigma2 = 1/m*sigma2
 
-
-
-
-
+  %---vectorized sigma2---
+  sigma2 = 1/m*sum((X - mu').^2)';
 
 
 % =============================================================
