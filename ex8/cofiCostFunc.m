@@ -39,21 +39,30 @@ Theta_grad = zeros(size(Theta));
 %        Theta_grad - num_users x num_features matrix, containing the 
 %                     partial derivatives w.r.t. to each element of Theta
 %
+PredRatingsAllUsers = X * Theta';
+MovieRatingError = PredRatingsAllUsers - Y;
+ErrorFactor = MovieRatingError .* R;
 
+unregCost = sum(sum(ErrorFactor .^ 2)) / 2;
+J = unregCost;
 
+%size(ErrorFactor')
+%size(X)
 
+X_grad = ErrorFactor * Theta ;
+Theta_grad = ErrorFactor' * X ;
 
+regTermX = sum(sum(X .^ 2)) * (lambda / 2);
+regTermTheta = sum(sum(Theta .^ 2)) * (lambda / 2);
+regTerm = regTermX + regTermTheta;
 
+J = J + regTerm;
 
+X_grad_reg = X * lambda;
+Theta_grad_reg = Theta * lambda;
 
-
-
-
-
-
-
-
-
+X_grad = X_grad + X_grad_reg;
+Theta_grad = Theta_grad + Theta_grad_reg;
 
 % =============================================================
 

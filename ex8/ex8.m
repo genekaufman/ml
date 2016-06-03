@@ -27,7 +27,7 @@ clear ; close all; clc
 %  This exercise will help us find possibly faulty (or very fast) machines.
 %
 
-fprintf('Visualizing example dataset for outlier detection.\n\n');
+fprintf('part1 Visualizing example dataset for outlier detection.\n\n');
 
 %  The following command loads the dataset. You should now have the
 %  variables X, Xval, yval in your environment
@@ -39,7 +39,7 @@ load('ex8data1.mat');
 %xlabel('Latency (ms)');
 %ylabel('Throughput (mb/s)');
 
-fprintf('Program paused. Press enter to continue.\n');
+fprintf('part1 Program paused. Press enter to continue.\n');
 %pause
 
 
@@ -51,7 +51,7 @@ fprintf('Program paused. Press enter to continue.\n');
 %  both the overall distribution and where each of the points falls in 
 %  terms of that distribution.
 %
-fprintf('Visualizing Gaussian fit.\n\n');
+fprintf('part2 Visualizing Gaussian fit.\n\n');
 
 %  Estimate my and sigma2
 [mu sigma2] = estimateGaussian(X);
@@ -61,12 +61,12 @@ fprintf('Visualizing Gaussian fit.\n\n');
 p = multivariateGaussian(X, mu, sigma2);
 
 %  Visualize the fit
-visualizeFit(X,  mu, sigma2);
-xlabel('Latency (ms)');
-ylabel('Throughput (mb/s)');
+%visualizeFit(X,  mu, sigma2);
+%xlabel('Latency (ms)');
+%ylabel('Throughput (mb/s)');
 
-fprintf('Program paused. Press enter to continue.\n');
-pause;
+fprintf('part2 Program paused. Press enter to continue.\n');
+%pause;
 
 %% ================== Part 3: Find Outliers ===================
 %  Now you will find a good epsilon threshold using a cross-validation set
@@ -84,12 +84,12 @@ fprintf('   (you should see a value epsilon of about 8.99e-05)\n\n');
 outliers = find(p < epsilon);
 
 %  Draw a red circle around those outliers
-hold on
-plot(X(outliers, 1), X(outliers, 2), 'ro', 'LineWidth', 2, 'MarkerSize', 10);
-hold off
+%hold on
+%plot(X(outliers, 1), X(outliers, 2), 'ro', 'LineWidth', 2, 'MarkerSize', 10);
+%hold off
 
-fprintf('Program paused. Press enter to continue.\n');
-pause;
+fprintf('part3 Program paused. Press enter to continue.\n');
+%pause;
 
 %% ================== Part 4: Multidimensional Outliers ===================
 %  We will now use the code from the previous part and apply it to a 
@@ -116,8 +116,8 @@ pval = multivariateGaussian(Xval, mu, sigma2);
 fprintf('Best epsilon found using cross-validation: %e\n', epsilon);
 fprintf('Best F1 on Cross Validation Set:  %f\n', F1);
 fprintf('# Outliers found: %d\n', sum(p < epsilon));
-fprintf('   (you should see a value epsilon of about 1.38e-18)\n\n');
-pause
+fprintf('part4    (you should see a value epsilon of about 1.38e-18)\n\n');
+%pause
 
 
 
